@@ -1,40 +1,13 @@
 {
   "name": "jazzy desktop",
-  "privileged": true,
-  "remoteUser": "ubuntu",
-  "build": {
-    "dockerfile": "Dockerfile",
-    "args": {
-      "USERNAME": "david"
-    }
-  },
-  "workspaceFolder": "/${localWorkspaceFolderBasename}",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/${localWorkspaceFolderBasename},type=bind",
-  "containerEnv": {
-    "DISPLAY": "${env:DISPLAY}",
-    "ROS_LOCALHOST_ONLY": "1",
-    "ROS_DOMAIN_ID": "42"
-  },
+  "build": { "dockerfile": "Dockerfile" },
+  "remoteUser": "root",
   "runArgs": [
-    "--runtime",
-    "nvidia",
-    "--privileged",
+    "--runtime", "nvidia",
     "--network=host",
-    "--pid=host",
-    "--ipc=host",
-    "-e",
-    "DISPLAY=${env:DISPLAY}"
+    "-e", "DISPLAY=${env:DISPLAY}"
   ],
   "mounts": [
-    "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
-    "source=/dev/dri,target=/dev/dri,type=bind,consistency=cached",
-    "source=/dev/nvidia0,target=/dev/nvidia0,type=bind",
-    "source=/dev/nvidiactl,target=/dev/nvidiactl,type=bind",
-    "source=/home/david/.ssh,target=/home/david/.ssh,type=bind,consistency=cached",
-    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.bash_history,target=/home/vscode/.bash_history,type=bind",
-    "source=/dev/i2c-0,target=/dev/i2c-0,type=bind",
-    "source=/dev/i2c-1,target=/dev/i2c-1,type=bind",
-    "source=/dev/i2c-2,target=/dev/i2c-2,type=bind"
-  ],
-  "postCreateCommand": "sudo chmod 600 /home/david/.ssh/id_* && sudo chown -R david:david /home/david/.ssh && rosdep update && rosdep install --from-paths src --ignore-src -y"
+    "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind"
+  ]
 }
