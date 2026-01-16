@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "ROS2: Launch",
+            "type": "ros2",
+            "request": "launch",
+            "target": "ws/src/"
+        }
+        // Add more configurations as needed
+    ]
+}
